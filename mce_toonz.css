@@ -128,7 +128,7 @@ img:hover {
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
 }
 
-@media screen and (max-width: 820px) {
+@media screen and (max-width: 600px) {
     #carousel-header {
         padding: 10px 15px;
         min-height: 50px;
