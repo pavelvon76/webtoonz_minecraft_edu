@@ -1,0 +1,38 @@
+{
+    "directories": [
+        {
+            "name": "01 Development environment",
+            "description": "Prostředí",
+            "files": [
+                "image1.jpg",
+                "image2.jpg",
+                "image3.jpg"
+            ]
+        },
+        {
+            "name": "02 Variables I",
+            "description": "Introduction to Variables",
+            "files": [
+                "image1.jpg",
+                "image2.jpg",
+                "image3.jpg"
+            ]
+        },
+        {
+            "name": "03 Loops",
+            "description": "Understanding Loops",
+            "files": [
+                "loop1.jpg",
+                "loop2.jpg"
+            ]
+        },
+        {
+            "name": "04 Functions",
+            "description": "Learning Functions",
+            "files": [
+                "function1.jpg",
+                "function2.jpg"
+            ]
+        }
+    ]
+}

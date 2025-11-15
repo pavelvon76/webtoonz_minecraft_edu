@@ -1,0 +1,107 @@
+const webtoonContainer = document.getElementById('webtoon-container');
+const carouselDisplay = document.getElementById('carousel-display');
+const carouselLeft = document.getElementById('carousel-left');
+const carouselRight = document.getElementById('carousel-right');
+
+// Configuration and state
+let config = null;
+let currentDirectoryIndex = 0;
+let currentIndex = 0;
+
+// Load configuration
+async function loadConfig() {
+    try {
+        const response = await fetch('config.json');
+        config = await response.json();
+        updateCarousel();
+    } catch (error) {
+        console.error('Error loading config:', error);
+        carouselDisplay.textContent = 'Error loading configuration';
+    }
+}
+
+// Update carousel display and buttons
+function updateCarousel() {
+    if (!config || !config.directories.length) return;
+    
+    const currentDirectory = config.directories[currentDirectoryIndex];
+    carouselDisplay.textContent = currentDirectory.description;
+    
+    // Update button states
+    carouselLeft.disabled = currentDirectoryIndex === 0;
+    carouselRight.disabled = currentDirectoryIndex === config.directories.length - 1;
+    
+    // Load images for current directory
+    loadImages(currentDirectory);
+}
+
+// Load images for selected directory
+function loadImages(directory) {
+    // Clear existing images
+    webtoonContainer.innerHTML = '';
+    
+    // Create image elements
+    directory.files.forEach(fileName => {
+        const imgElement = document.createElement('img');
+        imgElement.src = `mce_toonz/${directory.name}/${fileName}`;
+        imgElement.alt = fileName;
+        webtoonContainer.appendChild(imgElement);
+    });
+    
+    // Reset scroll position
+    currentIndex = 0;
+    scrollToCurrentIndex();
+}
+
+// Carousel navigation
+carouselLeft.addEventListener('click', () => {
+    if (currentDirectoryIndex > 0) {
+        currentDirectoryIndex--;
+        updateCarousel();
+    }
+});
+
+carouselRight.addEventListener('click', () => {
+    if (config && currentDirectoryIndex < config.directories.length - 1) {
+        currentDirectoryIndex++;
+        updateCarousel();
+    }
+});
+
+// Přidání funkcionality pro scrollování
+function handleScroll(event) {
+    event.preventDefault();
+    const images = webtoonContainer.querySelectorAll('img');
+    
+    if (images.length === 0) return;
+    
+    const delta = event.deltaY;
+    const threshold = 50; // Minimum scroll distance to trigger change
+
+    if (Math.abs(delta) > threshold) {
+        if (delta > 0 && currentIndex < images.length - 1) {
+            currentIndex++;
+            scrollToCurrentIndex();
+        } else if (delta < 0 && currentIndex > 0) {
+            currentIndex--;
+            scrollToCurrentIndex();
+        }
+    }
+}
+
+function scrollToCurrentIndex() {
+    const images = webtoonContainer.querySelectorAll('img');
+    if (images.length === 0) return;
+    
+    // Scroll to specific image
+    images[currentIndex].scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'start' 
+    });
+}
+
+// Přidání posluchače událostí pro scrollování
+window.addEventListener('wheel', handleScroll);
+
+// Initialize on page load
+loadConfig();
