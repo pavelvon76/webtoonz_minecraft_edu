@@ -48,9 +48,10 @@ function loadImages(directory) {
         webtoonContainer.appendChild(imgElement);
     });
     
-    // Reset scroll position
+    // Reset scroll position immediately
     currentIndex = 0;
-    scrollToCurrentIndex();
+    webtoonContainer.scrollTop = 0;
+    webtoonContainer.scrollTo(0, 0);
 }
 
 // Carousel navigation
@@ -91,12 +92,15 @@ function handleScroll(event) {
 
 function scrollToCurrentIndex() {
     const images = webtoonContainer.querySelectorAll('img');
-    if (images.length === 0) return;
+    if (images.length === 0 || !images[currentIndex]) return;
     
-    // Scroll to specific image
-    images[currentIndex].scrollIntoView({ 
-        behavior: 'smooth', 
-        block: 'start' 
+    // Scroll to specific image with offset for header
+    const headerHeight = document.getElementById('carousel-header').offsetHeight;
+    const imagePosition = images[currentIndex].offsetTop - headerHeight;
+    
+    webtoonContainer.scrollTo({
+        top: imagePosition,
+        behavior: 'smooth'
     });
 }
 

@@ -96,7 +96,7 @@ body {
 
 #webtoon-container {
     width: inherit;
-    height: 100vh;
+    height: calc(100vh - 84px); /* Subtract header height */
     overflow-y: auto;
     overflow-x: hidden;
     display: flex;
@@ -107,6 +107,7 @@ body {
     margin: 0px;
     scroll-snap-type: y mandatory;
     scroll-behavior: smooth;
+    padding-top: 0;
 }
 
 img {
@@ -119,6 +120,7 @@ img {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
     scroll-snap-align: start;
+    flex-shrink: 0;
 }
 
 img:hover {
@@ -130,7 +132,8 @@ img:hover {
     #carousel-header {
         padding: 10px 15px;
         min-height: 50px;
-        background-size: auto 100%;
+        background-size: auto 33%;
+        background-position: 5px center;
     }
     
     #carousel-display {
@@ -154,6 +157,7 @@ img:hover {
     
     #webtoon-container {
         background: linear-gradient(to bottom, #fce4ec 0%, #f8bbd0 100%);
+        height: calc(100vh - 70px);
     }
     
     img {
