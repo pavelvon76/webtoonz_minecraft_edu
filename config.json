@@ -19,11 +19,12 @@
             ]
         },
         {
-            "name": "03 Loops",
+            "name": "03 Variables II",
             "description": "Understanding Loops",
             "files": [
-                "loop1.jpg",
-                "loop2.jpg"
+                "image1.jpg",
+                "image2.jpg",
+                "image3.jpg"
             ]
         },
         {
