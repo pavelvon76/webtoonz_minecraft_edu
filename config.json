@@ -1,38 +1,18 @@
 {
     "directories": [
         {
-            "name": "01 Development environment",
-            "description": "Prostředí",
+            "name": "Game_LevelUP_V01",
+            "description": "LEVEL UP Game",
             "files": [
-                "image1.jpg",
-                "image2.jpg",
-                "image3.jpg"
-            ]
-        },
-        {
-            "name": "02 Variables I",
-            "description": "Introduction to Variables",
-            "files": [
-                "image1.jpg",
-                "image2.jpg",
-                "image3.jpg"
-            ]
-        },
-        {
-            "name": "03 Variables II",
-            "description": "Understanding Loops",
-            "files": [
-                "image1.jpg",
-                "image2.jpg",
-                "image3.jpg"
-            ]
-        },
-        {
-            "name": "04 Functions",
-            "description": "Learning Functions",
-            "files": [
-                "function1.jpg",
-                "function2.jpg"
+                "Slide1.jpeg",
+                "Slide2.jpeg",
+                "Slide3.jpeg",
+                "Slide4.jpeg",
+                "Slide5.jpeg",
+                "Slide6.jpeg",
+                "Slide7.jpeg",
+                "Slide8.jpeg",
+                "Slide9.jpeg"
             ]
         }
     ]
