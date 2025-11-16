@@ -112,20 +112,15 @@ body {
 
 img {
     display: block;
-    margin: 0 auto;
+    margin: 0;
+    padding: 0;
     width: 800px;
-    resize: horizontal;
     height: auto;
-    border-radius: 8px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    border-radius: 0;
+    box-shadow: none;
+    border: none;
     scroll-snap-align: start;
     flex-shrink: 0;
-}
-
-img:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
 }
 
 @media screen and (max-width: 600px) {
@@ -161,9 +156,9 @@ img:hover {
     }
     
     img {
-        margin-bottom: 0px;
+        margin: 0;
+        padding: 0;
         width: 100%;
-        resize: horizontal;
         height: auto;
         border-radius: 0;
     }
