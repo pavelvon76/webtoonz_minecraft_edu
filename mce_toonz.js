@@ -2,11 +2,14 @@ const webtoonContainer = document.getElementById('webtoon-container');
 const carouselDisplay = document.getElementById('carousel-display');
 const carouselLeft = document.getElementById('carousel-left');
 const carouselRight = document.getElementById('carousel-right');
+const toggleStickyBtn = document.getElementById('toggle-sticky');
+const carouselHeader = document.getElementById('carousel-header');
 
 // Configuration and state
 let config = null;
 let currentDirectoryIndex = 0;
 let currentIndex = 0;
+let isStickyEnabled = true;
 
 // Load configuration
 async function loadConfig() {
@@ -106,6 +109,21 @@ function scrollToCurrentIndex() {
 
 // Přidání posluchače událostí pro scrollování
 window.addEventListener('wheel', handleScroll);
+
+// Toggle sticky header
+toggleStickyBtn.addEventListener('click', () => {
+    isStickyEnabled = !isStickyEnabled;
+    
+    if (isStickyEnabled) {
+        carouselHeader.classList.remove('non-sticky');
+        toggleStickyBtn.classList.remove('active');
+        toggleStickyBtn.textContent = '📌';
+    } else {
+        carouselHeader.classList.add('non-sticky');
+        toggleStickyBtn.classList.add('active');
+        toggleStickyBtn.textContent = '📍';
+    }
+});
 
 // Initialize on page load
 loadConfig();
