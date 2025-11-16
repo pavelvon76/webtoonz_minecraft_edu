@@ -3,6 +3,7 @@ const carouselDisplay = document.getElementById('carousel-display');
 const carouselLeft = document.getElementById('carousel-left');
 const carouselRight = document.getElementById('carousel-right');
 const carouselHeader = document.getElementById('carousel-header');
+const pdfDownloadBtn = document.getElementById('pdf-download-btn');
 
 // Configuration and state
 let config = null;
@@ -31,6 +32,17 @@ function updateCarousel() {
     // Update button states
     carouselLeft.disabled = currentDirectoryIndex === 0;
     carouselRight.disabled = currentDirectoryIndex === config.directories.length - 1;
+    
+    // Update PDF download button
+    if (currentDirectory.pdfFile) {
+        pdfDownloadBtn.href = currentDirectory.pdfFile;
+        pdfDownloadBtn.download = `${currentDirectory.name}.pdf`;
+        pdfDownloadBtn.classList.remove('disabled');
+    } else {
+        pdfDownloadBtn.href = '#';
+        pdfDownloadBtn.removeAttribute('download');
+        pdfDownloadBtn.classList.add('disabled');
+    }
     
     // Load images for current directory
     loadImages(currentDirectory);
