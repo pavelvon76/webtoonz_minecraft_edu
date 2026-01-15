@@ -31,6 +31,26 @@
                 "Slide24.jpeg",
                 "Slide25.jpeg"
             ]
+        },
+         {
+            "name": "MC_Moding",
+            "description": "Minecraft Modding",
+            "pdfFile": "mce_toonz/MC_Moding/MCE-MOD-Entity.pdf",
+            "files": [
+                "Snimek1.PNG",
+                "Snimek2.PNG",  
+                "Snimek3.PNG",
+                "Snimek4.PNG",
+                "Snimek5.PNG",
+                "Snimek6.PNG",
+                "Snimek7.PNG",
+                "Snimek8.PNG",
+                "Snimek9.PNG",
+                "Snimek10.PNG",
+                "Snimek11.PNG",
+                "Snimek12.PNG",
+                "Snimek13.PNG"
+            ]
         }
     ]
 }
