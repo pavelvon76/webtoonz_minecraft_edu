@@ -375,14 +375,14 @@
         }
 
         .stat-value {
-            font-size: 2.5rem;
+            font-size: 1.8rem;
             font-weight: 700;
             color: #667eea;
             display: block;
         }
 
         .stat-label {
-            font-size: 0.9rem;
+            font-size: 0.75rem;
             color: #718096;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -592,6 +592,8 @@
             const typeFilter = document.getElementById('filterType').value;
 
             const cards = document.querySelectorAll('.card');
+            const visibleRequirements = [];
+            
             cards.forEach(card => {
                 const matchArea = !areaFilter || card.dataset.area === areaFilter;
                 const matchPhase = !phaseFilter || card.dataset.phase === phaseFilter;
@@ -599,10 +601,19 @@
 
                 if (matchArea && matchPhase && matchType) {
                     card.style.display = 'block';
+                    // Přidáme viditelný požadavek pro přepočet statistik
+                    visibleRequirements.push({
+                        Oblast: card.dataset.area,
+                        'Etapa Projektu': card.dataset.phase,
+                        Odhad: card.querySelector('.estimate-badge').textContent.replace('⏱️', '').trim()
+                    });
                 } else {
                     card.style.display = 'none';
                 }
             });
+            
+            // Přepočítání statistik pro viditelné požadavky
+            calculateStats(visibleRequirements);
         }
 
         // Inicializace
