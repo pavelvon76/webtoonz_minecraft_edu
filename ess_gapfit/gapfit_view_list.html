@@ -373,12 +373,8 @@
                 display: none;
             }
 
-            .card:not(.expanded) .info-box:not(:first-child) {
-                display: none;
-            }
-
-            .card:not(.expanded) .meta-item:first-child,
-            .card:not(.expanded) .meta-item:nth-child(2) {
+            .card:not(.expanded) .card-meta .meta-item:first-child,
+            .card:not(.expanded) .card-meta .meta-item:nth-child(2) {
                 display: none;
             }
         }
@@ -538,13 +534,14 @@
                                     <span class="estimate-badge">⏱️ ${req.Odhad}</span>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="card-right">
                             <div class="card-section">
                                 <span class="section-label">Požadavek</span>
                                 <div class="section-content">${req.Požadavek}</div>
                             </div>
+                        </div>
+
+                        <div class="card-right">
 
                             <div class="card-section">
                                 <span class="section-label">Akceptační kritéria</span>
