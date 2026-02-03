@@ -345,10 +345,41 @@
 
             .card {
                 padding: 1.5rem;
+                cursor: pointer;
+                position: relative;
+            }
+
+            .card::after {
+                content: '▼';
+                position: absolute;
+                top: 1.5rem;
+                right: 1.5rem;
+                font-size: 1.2rem;
+                color: #667eea;
+                transition: transform 0.3s;
+            }
+
+            .card.expanded::after {
+                transform: rotate(180deg);
             }
 
             .card-title {
                 font-size: 1.3rem;
+                padding-right: 2rem;
+            }
+
+            /* Skrýt detailní sekce u sbalených karet */
+            .card:not(.expanded) .card-right {
+                display: none;
+            }
+
+            .card:not(.expanded) .info-box:not(:first-child) {
+                display: none;
+            }
+
+            .card:not(.expanded) .meta-item:first-child,
+            .card:not(.expanded) .meta-item:nth-child(2) {
+                display: none;
             }
         }
 
@@ -433,7 +464,7 @@
             </div>
             <div class="stat-item">
                 <span class="stat-value" id="totalHours">0</span>
-                <span class="stat-label">Celkový odhad (hod)</span>
+                <span class="stat-label">Celkový odhad (MD)</span>
             </div>
             <div class="stat-item">
                 <span class="stat-value" id="totalAreas">0</span>
@@ -636,6 +667,16 @@
             document.getElementById('filterArea').addEventListener('change', filterCards);
             document.getElementById('filterPhase').addEventListener('change', filterCards);
             document.getElementById('filterType').addEventListener('change', filterCards);
+
+            // Toggle pro mobilní zobrazení
+            if (window.innerWidth <= 768) {
+                document.addEventListener('click', (e) => {
+                    const card = e.target.closest('.card');
+                    if (card) {
+                        card.classList.toggle('expanded');
+                    }
+                });
+            }
         }
 
         // Spuštění po načtení stránky
