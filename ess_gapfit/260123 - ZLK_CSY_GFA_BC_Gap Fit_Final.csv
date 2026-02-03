@@ -1,0 +1,139 @@
+,ZLK: gap-fit analýza,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,verze,1.00,,,,,,,,,,,
+,,datum,2025-12-07,,,,,,,,,,,
+,,pøipravil,Petra Nejezchlebová,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,Oblast,Kapitola,Požadavek,Oznaèení analýza BC,Etapa Projektu,Popis øešení,Øešení,Zpùsob fakturace,Akceptaèní kritéria,Aktuální stav,Odhad ÈD,Odhad délky øešení,,
+,Výroba,Výrobní procesy,"Pøedání VZ do výroby = papírový arch se štítky, tøíkrát lepené na dveøe/zárubnì.
+? Cíl: tisk pøímo ve výrobì, automatizace.",VYR_01,Etapa 1 - Implementace BC,Je potøeba nasadit Print Server k umožnìní pøímého tisku z cloud prostøedí. ,Essence modul,,pøi tisku výrobního štítku mohu tisknout pøímo z BC bez nutnosti vytvoøení PDF náhledu,,,,,
+,Výroba,Výrobní procesy,"Kódy pro CNC mají specifické znaèení SN (písmeno navíc).
+? Systém musí rozlišit výrobní vs. rámové kódy.
+",VYR_02,Etapa 1 - Implementace BC,Nové tiskové úlohy (tisk štítku produktu CNC-1 a tisk štítku produktu CNC-2),Essence úprava,T&M,z VZ v systému mohu vytisknout tiskovou sestavu CNC-1 a CNC2 ,,2,,,
+,Výroba,Výrobní procesy,Sušení po lakování 16 h = pevná technologická konstanta pro plánování.,VYR_03,Etapa 1 - Implementace BC,Nastavení na urovni Pracovního centra nebo TNG v Èekací doba,Microsoft,,"Jakmile je v TNG postupu proces lakování, bude v plánování k tomtuto øádku pøipoèten èass èekání. Další operace bude plánování až po tomto èasu",,,,,
+,Výroba,Výrobní procesy,Každá èást výroby má vlastní protokol na papíøe ? roztøíštìná evidence.,VYR_04,Etapa 1 - Implementace BC,Prùvodky dle operací. Bude definováno v testovacím procesu,Essence úprava,T&M,"Po vytvoøení zakázek je možné vytisknout výrobní prùvodku ke každé operaci, dle potøeby.",,1,,,
+,Výroba,Výrobní procesy,"Øazení VZ na palety se dìlá ruènì podle velikosti palety, optimálnì øadit podle logiky dalších operací.",VYR_05,Etapa 1 - Implementace BC,Nebude øízeno pomocí ERP systému,Poznámka,,--,,,,,
+,Výroba,Výrobní procesy,Lisování jede po 3 kusech – pevné výrobní pravidlo.,VYR_06,Etapa 1 - Implementace BC,Na pracovním centru v rámci TNG bude definována soubìžná kapacita. Plánování VZ bude pøedpokládat výrobu 3ks v rámci jenodnoho kroku TNG,Microsoft,,Pøi plánování výrobních zakázek bude poèítáno s možností výroby 3 dveøí bìhem jodnoho kroku lisování,,,,,
+,Výroba,Výrobní procesy,Páskování a nìkteré operace nejsou v technologii ? nejde plánovat ani kontrolovat.,VYR_07,Etapa 1 - Implementace BC,"Všechny operace pro výrobu musí být zahrnuty v rámci TNG postupu. Nesmí existovat operace ani materiály, které nejsou v TPV",Microsoft,,V TNG postupu VZ jsou vypsané všechny kroky výroby které jsou potøeba. Existuje tak kompletní pøedpis výroby,,,,,
+,Výroba,Výrobní procesy,Kitovací pracovištì mají vlastní mini-procesy mimo systém.,VYR_08,Etapa 1 - Implementace BC,"Všechny operace pro výrobu musí být zahrnuty v rámci TNG postupu. Nesmí existovat operace ani materiály, které nejsou v TPV",Microsoft,,V TNG postupu VZ jsou vypsané všechny kroky výroby které jsou potøeba. Existuje tak kompletní pøedpis výroby,,,,,
+,Výroba,Plánování výroby a kapacit,Požadovaný termín dodání = datum vytvoøení + 6 týdnù.,VYR_09,Etapa 1 - Implementace BC,Viz bod v DNPS_33,Poznámka,RFC,"Pøi vytvoøení prodejní nabídky dojde k automatickému vyplnìní pole Požadované datum dodání.
+Pøi pøeklopení nabídky na objednávku dojde k jeho aktualizaci (požadované datum dodávky = Dnešní datum + hodnota z nastavení prodeje)",,,,,
+,Výroba,Plánování výroby a kapacit,Lakování posouvá výrobu o ~14 dní proti expedici.,VYR_10,Etapa 1 - Implementace BC,na TNG v rámci operace lakování musí být nastavena èekací doba,Microsoft,,"Pø zaplánování výroby s lakováním, bude operace lakování s rezervou pro lakování",,,,,
+,Výroba,Plánování výroby a kapacit,"Neexistují reálné èasy práce, v BC øeší to KIOSK, ale komplikací je øezání po paletách.",VYR_11,Etapa 1 - Implementace BC,Po nasazení KIOSK (Start-Stop) sledování v Archiv bufferu bìžíích operací poté vyhodnocení a upraveno v TNG (optimalizace),Essence modul,,"Nìkteré operace v rámci výroby budou odvádìny pomocí START-STOP kiosku. Bude tak monitorován zaèátek a konec pracovní operace. Bude tak zaznamenán kompletní výrobní èas, SN odvedení.",,,,,
+,Výroba,Plánování výroby a kapacit,"Prùtok: KS = hodiny, s barvou = dny. Stìžejní je termín výroby.",VYR_12,Etapa 1 - Implementace BC,,Poznámka,,,,,,,
+,Výroba,Plánování výroby a kapacit,"Mistr rozhoduje finálnì podle lidí, dekorù, èištìní a real-time situace.",VYR_13,Etapa 3 - Rozvojová fáze systému,Finální (jemné) plánování provádí mistr pomocí nástrujù Essence maniufacturing Graphic planning a reálnì dostupných lidí ve výrobì.,Essence modul,,"Mistr mùže pøeplánovat výrobní zakázky dle potøeb a akapcit výroby. Pomáhat mu bude k tomu grafické zobrazení vytížení výroby (Gannt VZ, Vytížení pracovních center a možnost plánvat konkrétní operátory dle matice zkušeností)",,,,,
+,Výroba,Plánování výroby a kapacit,"Dekory mají omezení – urèité typy pouze v konkrétní dny/sekvence.
+? nutné plánovat podle skupin dekorù.",VYR_14,Etapa 1 - Implementace BC,"Typ dekoru bude kódován v informaci Manufacturing Order Type
+Na základì tohoto pole je možné plánovat dle podobných dekorù kumulovanì. Pøípadnì rezervovat urèitì kapacity stejných výrobkù pro konkrétní pracovní centra. ",Essence modul,,Každá výrobní zakázka je oznaèená svým typem. Existuje tak možnost rozšíøené evidence zakázek,,,,,
+,Výroba,Plánování výroby a kapacit,Pøenos do sešitu plánování nebo pøímé vytvoøení z SO.,VYR_15,Etapa 1 - Implementace BC,Standardní vytváøení VZ øízená dle pravidel (vydané SO se zaplacenou zálohou),Essence úprava,RFC,"Zakázky je možné vytvoøi z prodejních objednávek a bude respekotvat konfiguraci dle požadavkù zákazníka.
+Zakázky je možné vytvoøit jen z vydané SO",,0.5,,,
+,Výroba,Kooperace,Kooperace se musí umìt plánovat kapacitnì stejnì jako vlastní výrobu.,VYR_16,Etapa 1 - Implementace BC,Kooperaèní pracovní centrum mùže být nositelem kapacity pokud je správnì nastaveno,Microsoft,,"Dodavatel kooperací bude nastacený jako pracovní centrum. Jeho kapacity budou nastaveny jako pro všechna ostatní pracovní centra,",,,,,
+,Výroba,Plánování výroby a kapacit,"Termín výroby musí vzniknout okamžitì pøi úhradì zálohy, ne pozdìji.",VYR_17,Etapa 3 - Rozvojová fáze systému,"Termín bude urèen na základì zaplánování do výroby. 
+Do výroby propadá zaplacená SO",Essence úprava,RFC,"Pøi vytvoøení prodejní nabídky dojde k automatickému vyplnìní pole Požadované datum dodání.
+Pøi pøeklopení nabídky na objednávku dojde k jeho aktualizaci (požadované datum dodávky = Dnešní datum + hodnota z nastavení prodeje)
+Po zaplánování zakázky dojde k propsání termínu výroby na øádek prodejní objednávky",,1,,,
+,Výroba,"BOM, TNG, konfigurátor","Pøepoèty barev se dìlají v Excelu ? barvy nejsou systemizované v BOM.
+Pro každou barvu se zakládá separátní karta.",VYR_18,Etapa 1 - Implementace BC,Barva bude založena jako karta zboží. Jakákoliv RAL identifikace bude založena jako Varianta karty zboží,Microsoft,,Do VZ bude možné vložit potøebnou barvu. Barvu bude tak možné plánovat v nákupu jako jakýkoliv jiný materiál pro výrobu,,,,,
+,Výroba,Evidence spotøeby a skladové toky,"Barva má jen pøedpokládanou spotøebu v Heliosu, reálná evidence spotøeby v sešitu.",VYR_19,Etapa 1 - Implementace BC,Spotøeba bude evidována pomocí Kiosku (Essence Kiosk - Spotøeba do VZ),Essence modul,,"Barva bude spotøebovávána pomocí kiosku. Po naètení zakázky, zadám typ barvy a nastavím množství, které je potøeba spotøsbovat.",,,,,
+,Výroba,Evidence spotøeby a skladové toky,"Surové holé (nepotažené) obložky – sklady, evidence až hotových, polotovary nejsou podchyceny.",VYR_20,Etapa 1 - Implementace BC,"Zavést systémovì výrobu polotovarù obložek. 
+VZ se následnì plánují dle potøeb na hotové zárubnì pomocí MRP dozásobení pøípadnì dle MIN množství dle nastavení SKU",Microsoft,,Surové obložky budou založeny jako polotovat. Bude tak docházek k plánování výroby ,,,,,
+,Výroba,Evidence spotøeby a skladové toky,"Rámeèky skladované v kusech, spotøeba v mm ? bez kontroly dekoru = riziko zámìny.",VYR_21,Etapa 1 - Implementace BC,"Nákupní jednotka KS, základní jednotka mm - systém automaticky pøepoèítává dle spotøeby do VZ
+Pozice lišt budou nastavené výchozí pøihrádky s pevným obsahem (Pøihrádka XY = pouze zboží 1) Pøihrádky budou oznaèeny pomocí èárového kódu budou tyto pozice skenovány pomocí HHT",Microsoft,,"Pøihrádky pro materiály rámeèkù budou nastaveny jako pevné pøihrádky pro tento materiál. 
+Spotøeba bude následnì evidována v mm",,,,,
+,Výroba,Evidence spotøeby a skladové toky,Hranoly: každá karta = jiná délka.,VYR_22,Etapa 1 - Implementace BC,Hranoly: každá karta = jiná délka.,Microsoft,,"Každý hranol pro výrobbu rámù, které je nakopuván jako samostatný délkový rozmìr, bude zadán v systému jako samostatná karta zboží",,,,,
+,Výroba,"BOM, TNG, konfigurátor",Pøedoptimalizace øezání hranolù,VYR_23,Etapa 3 - Rozvojová fáze systému,"Pøedoptimalizace náøezového plánu: Napojení na službu Opticutter pro definici optimálního složení materiálu pro danou výrobní dávku.
+
+Pro vybrané výrobní zakázky spoèítat pro každý optimalizovaný materiál, která skladová délka materiálu by byla nejoptimálnìjší pro uspokojení zakázek.
+Nejvýhodnìjší variantu zboží následnì vyplnit do komponent výrobních zakázek
+Pøedpokládá se využití Náhrad zboží, kdy pro každé zboží existuje X karet a každá má jinou délku.
+Finální optimalizace a øezání pak bude probíhat nad nejoptimálnìjší kartou zboží.",Essence úprava,T&M,Systém mi automatcky upraví kusovník VZ a navrhne z jaké délkové varianty mám rámy vyrábìt.,,4,,,
+,Výroba,Plánování výroby a kapacit,Sestavení TNG a BOM pro VZ,VYR_24,Etapa 1 - Implementace BC,VZ: konfigurátor sestaví BOM a TNG,Essence úprava,T&M,Pomocí konfigurátoru dojde ke kompletními vygenerování TNG a BOM,,25,,,
+,Výroba,"BOM, TNG, konfigurátor",Optimalizaci øezání hranolù (Dnes dìlá mistr ruènì),VYR_25,Etapa 3 - Rozvojová fáze systému,"Optimalizace kusovníkù: Na základì výstupu z Opticutter dojde k optimalizaci BOM a zámìnì množství spotøebovávaného materiálu za definovanou optimalizovanou délku.
+
+Custom funkce (Codeunit) - na základì dat z Opticutter uloží data o optimalizaci materiálu do Business Centralu
+Nové datové struktury pro uložení dat z Opticutteru (Tabulky a Page) 
+Funkce pro uložení vypoètených optimalizací do komponent VZ.
+Rozšíøení kioskù pro øezání na zobrazení náøezových plánù a optimalizací.
+Øezání ze zbytkù a aktualizace spotøeby materiálu na optimalizaci z kioskù.",Essence úprava,T&M,"Kusovník VZ je následnì upravený, tak aby byly evidovány všechny délky, které potøebujeme pro výrobu rámù",,6,,,
+,Výroba,Evidence spotøeby a skladové toky,"Režijní materiál = funkèní kanban, ale mimo systém.",VYR_26,Etapa 1 - Implementace BC,Viz bod v DNPS_27,Poznámka,,"Operátor pøevede materiál na spotøební pøihrádku (Vyr_rezie). Tato pøihrádka následnì bude vyrovnána pomocí deníku zboží.
+Na základì poklesu množství bude následnì automaticky generován požadavek na dozásobení.",,,,,
+,Výroba,Evidence spotøeby a skladové toky,Materiál se po vyskladnìní pøesune do “meziskladu” a na konci týdne se hromadnì spotøebuje ? ztráta pøesnosti.,VYR_27,Etapa 1 - Implementace BC,"Bude využito pouze pro režijní materiál. Všechny komponenty dle VZ budou spotøebovávány øízenì pøímo do VZ. (Maximalizace snahy o automatickou spotøebu v návaznostu na vazbu na TNG postup) Materiál do VZ bude definován pomocí konfigurátoru produktu
+",Microsoft,,V systému je následnì neustále vidìt disponibilita zásob. Maximální možné mnoství materiálu bude nastaveno jako automatické spotøeby do VZ.,,,,,
+,Výroba,Evidence spotøeby a skladové toky,Miralon a lepidla – roèní jednorázové odpisy.,VYR_28,Etapa 1 - Implementace BC,Viz bod v DNPS_27,Microsoft,,"Operátor pøevede materiál na spotøební pøihrádku (Vyr_rezie). Tato pøihrádka následnì bude vyrovnána pomocí deníku zboží.
+Na základì poklesu množství bude následnì automaticky generován požadavek na dozásobení.",,,,,
+,Výroba,Evidence spotøeby a skladové toky,Brusiva se ani nenaskladòují ? materiál bez kontroly.,VYR_29,Etapa 1 - Implementace BC,Viz bod v DNPS_27,Microsoft,,"Operátor pøevede materiál na spotøební pøihrádku (Vyr_rezie). Tato pøihrádka následnì bude vyrovnána pomocí deníku zboží.
+Na základì poklesu množství bude následnì automaticky generován požadavek na dozásobení.",,,,,
+,Výroba,Evidence spotøeby a skladové toky,Zbytky barev jdou na “èerný sklad”.,VYR_30,Etapa 1 - Implementace BC,Barva bude založena jako karta zboží. Jakákoliv RAL identifikace bude založena jako Varianta karty zboží,Microsoft,,Do VZ bude možné vložit potøebnou barvu. Barvu bude tak možné plánovat v nákupu jako jakýkoliv jiný materiál pro výrobu,,,,,
+,Výroba,Evidence spotøeby a skladové toky,VZ spotøeba pøes èteèky + ruènì ? požadavak na  automatickou spotøebu.,VYR_31,Etapa 1 - Implementace BC,"Essence kiosky
+Start-Stop kiosek
+Spotøeba do VZ
+Spotøeba na operaci",Poznámka,,,,,,,
+,Výroba,Výrobní procesy,"Interní objednávky se používají historicky pro výplnì, není standard.",VYR_33,Etapa 1 - Implementace BC,Interní objednávky nebudou využívány. Vše bude øešeno v TPV a Kooperacích,Poznámka,,,,,,,
+,Výroba,Strojní a pracovní centra,"CNC programy pøipraví Helios, manuální pøes správce TPV.",VYR_34,Etapa 1 - Implementace BC,"u jednoho typu CNC: 
+V rámci konfigurátoru návaznost na CNC program => Definice závislostí parametru a èásti datové vìty programu dle pøípravy TPV.
+U CNC s výbìrem programu bude existovat návaznost Varianta produktu vs program CNC",Essence úprava,T&M,"Dle VZ bude možné vybrat pøeddefinovaný program v CNC stroji.
+Informace o stroji budou evidovány i na prùvodce VZ",,8,,,
+,,Strojní a pracovní centra,Pøenos programu do CNC stroje,VYR_35,Etapa 3 - Rozvojová fáze systému,V rámci prjektu bude implementován modul pro komunikaci s lokálním serverem a PC. (Essence - File proxy helper),Essence úprava,T&M,Bude možné komunikovat s lokální serverem a stroji,,8,,,
+,Výroba,Strojní a pracovní centra,"Zamìstnanec naskenuje štítek ? stroj ví, co dìlat.
+Dvì lokální mašiny pøepojují data vlastním programem.",VYR_36,Etapa 3 - Rozvojová fáze systému,V rámci prjektu bude implementován modul pro komunikaci s lokálním serverem a PC. (Essence - File proxy helper),Essence úprava,RFC,Bude možné komunikovat s lokální serverem a stroji,,3,,,
+,Výroba,Strojní a pracovní centra,Kiosky ,VYR_37,Etapa 1 - Implementace BC,"Plánované minimálnì pro výplnì a lakování ? digitalizace reálných èasù. (odvod Start - Stop) Zadání zaèátku a konce operací
+Kiosky Montáže, rámy, lisování, CNC - Odvod dle normy",Essence modul,,V prùbìhu výroby bude možné veškerou výrobu evidovat pomocí výrobních kioskù,,,,,
+,Výroba,Kooperace,"Kooperace bìží na materiálové bázi: firma pošle materiál, dodavatel vrátí výrobek. sledování materiálu",VYR_38,Etapa 1 - Implementace BC,TBD,,,,,,,,
+,Výroba,Prodej a návazné procesy,"VZ do výroby jde až po zaplacení zálohy.
+Workflow: záloha ? výpoèet termínu ? plán ? potvrzení zákazníkovi.",VYR_39,Etapa 1 - Implementace BC,"Na SO nové pole STAV
+Pøidat podmínku na funkce:
+1) Odeslat do Sešitu plánování
+2) Plán - Vytvoøit VZ pro vybrané øádky (na page Sales Order Planning (99000883, List))
+3) Navrh dozásobení pro SO
+4) na funkci vypoèítat reg. plán - pouze pro vydané øádky
+(spustit pouze na vydaném dokladu)",Essence úprava,RFC,"Zakázky je možné vytvoøi z prodejních objednávek a bude respekotvat konfiguraci dle požadavkù zákazníka. 
+Zakázky je možné vytvoøit jen z vydané SO",,1,,,
+,Výroba,Prodej a návazné procesy,Obchod chce kontrolu proveditelnosti ještì pøed potvrzením termínu.,VYR_40,Etapa 1 - Implementace BC,"Pøeplánovací modul Essence Manufacturing (Production Batch planning)
+Na základì zmìny stavu VZ (z plánováno na Pevnì plánováno, vyplnit pole Potvrzený termín dodání na SO) 
+Vyplnit pomocí reportu v Job Queue
+vytvoøit pro OZ kostku - objednávky k potvrzení - všechny SO kde je pole Pøisl. ter. dod vyplnìn a není oznaèeno, potvrzeno",Essence úprava,RFC,"Pøi vytvoøení prodejní nabídky dojde k automatickému vyplnìní pole Požadované datum dodání.
+Pøi pøeklopení nabídky na objednávku dojde k jeho aktualizaci (požadované datum dodávky = Dnešní datum + hodnota z nastavení prodeje)",,1,,,
+,Výroba,Prodej a návazné procesy,Expedièní paletové štítky: požadavek na zavedení.,VYR_42,Etapa 1 - Implementace BC,,Poznámka,,,,,,,
+,Výroba,Prodej a návazné procesy,"Dveøe a zárubnì jsou baleny zvláš, ale mají jeden expedièní list.",VYR_43,Etapa 1 - Implementace BC,,Poznámka,,,,,,,
+,Výroba,Sériová èísla a identifikace,Seriové èíslo urèují zamìøovaèi podle pozic v domì – mùže být 5 stejných dveøí s rùzným SN.,VYR_44,Etapa 1 - Implementace BC,"Bude øešeno pomocí standardní funkce sledování zboží pomocí seriových èísel.
+",Microsoft,,Mohu nakonfigurovat 5 stejných výrobkù a nabízet pomocí jednoho prodejního øádku. Následnì jsou produkty rozdìleny seriovým èíslem se stejnou konfigurací.,,,,,
+,Výroba,Sériová èísla a identifikace,Helios umí generovat SN automaticky ? ideální smìr.,VYR_45,Etapa 1 - Implementace BC,Seriová èísla budou mít automaticky generovány prefixy dle èísla objednávky viz DNPS_60,Poznámka,,,,,,,
+,Výroba,Sériová èísla a identifikace,SN nemusí mít slovní popis (kuchyò atd.) – jen když chce cenáø.,VYR_46,Etapa 1 - Implementace BC,,Poznámka,,,,,,,
+,Výroba,Sériová èísla a identifikace,Automatizace: SN z obchodního pøíkazu,VYR_47,Etapa 1 - Implementace BC,Seriová èísla budou mít automaticky generovány prefixy dle èísla objednávky viz DNPS_60,Poznámka,,,,,,,
+,Výroba,Kvalita,"Kontrolní plány existují, ale nejsou implementované do výroby. Požadavek: digitalizace kontrol.",VYR_48,Etapa 1 - Implementace BC,"Pro prùbìžné, vstupní a výstupní kontroly bude využit standardizovaný modul kvality inspekce dle MS. Jendotlivé kontroly budou postaby uživatelsky.",Microsoft,,V systému mohu vytvoøit plravidla pro kvality kontroly. Všechny kontroly kvality vyplnìné systémovì jsou uloženy a archivovány v systému.,,,,,
+,Výroba,Plánování lidských zdrojù,Pøíèkaøi pracují ve schématu 1–1–1. Nutné posoudit potøebu kvalifikaèní matice kvùli rozdìlení práce.,VYR_49,Etapa 3 - Rozvojová fáze systému,Manufacturing Employe management,Poznámka,,,,,,,
+,Výroba,Evidence spotøeby a skladové toky,"Lepidlo: 1 barel / 1500 dveøí mìsíènì, evidováno jako režie. Nutná pøesnìjší spotøeba.",VYR_50,Etapa 1 - Implementace BC,Rozpad spotøeby do VZ. Do kusovníku VZ je možné pøidat množství lepidla. Bude tak docházet ke spotøebì dle VZ,Essence modul,,Lepidla budou spotøebovávány automaticky dle odvodu VZ,,,,,
+,Výroba,Evidence spotøeby a skladové toky,Uprostøed výroby je sklad polotovarù a zbytkù,VYR_51,Etapa 1 - Implementace BC,"Evidence materiálu v pøihrádkách. 
+Øídit zaskladnìní, vyskladnìní.",Poznámka,,,,,,,
+,Výroba,Kooperace,"Protipožární dveøe – materiál posílají dodavateli, vrací hotový díl ? nutná správná evidence materiálu.",VYR_52,Etapa 1 - Implementace BC,TBD,,,,,,,,
+,Výroba,Kooperace,"Èasto objednávají kooperaci na sklad, ne na zakázku. Pøíklad: kašírování plášù. Nutno standardizovat.",VYR_53,Etapa 1 - Implementace BC,"Kooperace je tvoøena z øádkù TNG VZ dle nastavené VZ. Pokud je VZ plánována na sklad, i kooperace bude vytvoøena smìremna sklad.",Microsoft,,"V sešitu subdodávek spustím akci vypoèítat subdodávky a zobrazím všechny øádky TNG VZ, kde je nastavené pracovní centrum kooperace. Ze sešitu subdodávek mohu pomocí akce Pøijmout hlášené vytvoøit nákupní objednávky.",,,,,
+,Výroba,Evidence spotøeby a skladové toky,"Balení kartonù – funkèní kanban, nutné zavést do systému.",VYR_54,Etapa 1 - Implementace BC,Viz bod v DNPS_27,Poznámka,,"Operátor pøevede materiál na spotøební pøihrádku (Vyr_rezie). Tato pøihrádka následnì bude vyrovnána pomocí deníku zboží.
+Na základì poklesu množství bude následnì automaticky generován požadavek na dozásobení.",,,,,
+,Výroba,Výrobní procesy,Tisk pøílohy s pùvodkou. Ideálnì pøílohy oznaèit k tisku ANO\NE,VYR_55,Etapa 3 - Rozvojová fáze systému,"Úprava tiskové sestavy a modulu Document Attachment. Na pøíloze zvolit tisk pøílohy Ano/NE
+",Essence úprava,T&M,S prùvodkou VZ mohu vytisknout také oznaèené pøílohy,,1,,,
+,,Výrobní procesy,"Obložky se dìlají na dávky, støedové díly jsou polotovar",VYR_56,Etapa 1 - Implementace BC,,Poznámka,,,,,,,
+,Výroba,Plánování výroby a kapacit,"Výroba má rezervy a interní zkušenost – systém je nesmí zabít. Systém musí umožnit:
+
+nastavitelné rezervy
+
+flexibilní zásahy mistra
+
+ne pøíliš rigidní algoritmus",VYR_57,Etapa 1 - Implementace BC,,Poznámka,,,,,,,
+,,Plánování výroby a kapacit,"“U atypù musíme vìci dohánìt ruènì.”
+
+? Požadavek:
+Systém musí umožnit manuální override u:
+
+kusovníku
+
+technologického postupu
+
+termínu
+
+plánovací logiky",VYR_58,Etapa 1 - Implementace BC,,Poznámka,,,,,,,
+,Výroba,Prodej a návazné procesy,"Obchod potøebuje kontrolu proveditelnosti pøed potvrzením termínu.
+Ideálnì: blokace nereálných termínù nebo varování.",VYR_59,Etapa 1 - Implementace BC,Využití modulu Essence Èistì zakázková výroba. Na prodejní objednávce i na výrobní zakázce je informace o pøípadném porušení termínu dodání.,Essence modul,,"Po pøeplánování zakázky vidím reálný termín dodání na zakázce i na prodejní objednávce. V pøípadì pøeplánování na termín po slíbeném termínu, je tato informace zapsána na domovské stránce v kostce s varováním",,,,,
+,Výroba,Kooperace,Sešit plánování -> vypoèítat plán -> Provést hlášené akce ->  Sešity subdodavatelù -> Vypoèítat Subdodávky,VYR_60,Etapa 1 - Implementace BC,Vytvoøení objednávky pro kooperaci bude vytvoøena pomocí standardní funkce. Všechny øádky TNG oznaèené jako kooperace bude možné pøenést do sešitu subdodávek. Odtud se vytváøení zakázky stejnì jako nákupní objednávky. ,Microsoft,,"V sešitu subdodávek spustím akci vypoèítat subdodávky a zobrazím všechny øádky TNG VZ, kde je nastavené pracovní centrum kooperace. Ze sešitu subdodávek mohu pomocí akce Pøijmout hlášené vytvoøit nákupní objednávky.",,,,,
+,Výroba,Sériová èísla a identifikace,"Seriové èísla, na základì prodeje píšou cenaøi, urèují si pozici kde se ty dveøí umístí, takže pìt stejných dveøí bude 5 seriových èísel. SN helios dáva èíslo sám, není nutné mít popis jako kuchyò, max popis navíc ale jen když chce, rozhodnout by mìli cenaøi (teï je to èíslo VZ a pozice 001,) automatizace z èísla obchodního pøíkazu definuje obchod ",VYR_61,Etapa 1 - Implementace BC,,Poznámka,,,,,,,
+,Výroba,Prodej a návazné procesy,V prodejním konfigurátoru jsou jiné vìci než v interním.,VYR_62,Etapa 1 - Implementace BC,"Konfigurátor bude sjednocen pro prodejní i výrobní èást. V rámci prodeje budou nakonfigurovány všechny parametry, které mùže generovat zákazník. Na každy parametr bude existovat návaznost výroby (úprava TNG, BOM…)",Poznámka,,Po konfiguraci prodektu v prodeji je možné vytvoøit výrobní zakázky. Konfigurace bude obsahovat všechna potøebná data pro výrobu. ,,,,,
+,Výroba,,,,Etapa 2 - Implementace CRM,,Poznámka,,,,,,,

@@ -1,0 +1,236 @@
+,ZLK: gap-fit analýza,,,,,,,,,,,
+,,,,,,,,,,,,
+,,verze,1.00,,,,,,,,,
+,,datum,2025-09-25,,,,,,,,,
+,,pøipravil,,,,,,,,,,
+,,,,,,,,,,,,
+,Oblast,Kapitola,Požadavek,Oznaèení analýza BC,Etapa Projektu,Popis øešení,Øešení,Zpùsob fakturace,Akceptaèní kritéria,Aktuální stav,Odhad ÈD,Odhad délky øešení
+,Finance a úèetnictví,Základní informace,"Více spoleèností v BC
+Spoleènosti v BC:
+- nábytek, dveøe-zárubnì, obchodní, holding
+Spoleènosti mimo BC:
+- SK spoleènost",FIN_001,Etapa 1 - Implementace BC,,Microsoft,,Založená spoleènost,,,
+,Finance a úèetnictví,Dimenze,Partner,FIN_002,Etapa 1 - Implementace BC,"Na každém zákazníkovi/dodavateli, kteøí jsou mezi sebou propojeni, bude nastavena dimenze Partner.
+Uživatel bude mít k dispozici podklady pro pøílohu k daòovému pøiznání a pro zpracování konsolidované úèetní závìrky.",Microsoft,,"Dimenze Partner bude propsaná na související položky zákazníka/dodavatele a vìcné položky
+Uživatel pøímo ze systému získá podklady pro evidenci propojených osob. .",,,
+,Finance a úèetnictví,Úèetnictví,Fiskální období - kalendáøní rok,FIN_003,Etapa 1 - Implementace BC,Na tabulce Úèetní období definuje uživatel poèátek fiskálního roku. ,Microsoft,,"Úèetní období má u prvního mìsíce fiskálního období nastaveno, že se jedná o zaèátek úèetního období.
+Pokud je zadáno více fiskálních období, má každé období svùj zaèátek.",,,
+,Finance a úèetnictví,DPH,Plátce DPH,FIN_004,Etapa 1 - Implementace BC,"Spoleènosti jsou mìsíèní plátci DPH, pro každý kalendáøní rok uživatel vygeneruje 12 období.",Microsoft,,Období DPH je nastaveno podle vykazování DPH. Obvykle je nastaveno mìsíèní období a každý leden je nastaven jako první mìsíc v kalendáøním roce.,,,
+,Finance a úèetnictví,DPH,Pøiznání DPH,FIN_005,Etapa 1 - Implementace BC,"Na Pøehledu pøiznání DPH jsou uloženy všechny pøiznání, která uživatel generoval z BC. Z pøehledu lze vygenerovat XML soubor nebo je uživatel pøesmìrován pøímo na Daòový portál.
+Pøiznání vychází z tabulky Výkaz DPH, kde jsou definovány všechny použité kombinace DPH úèto skupin.",Microsoft ÈR,,"Uživatel má pøehled, která pro která období DPH byl vygenerováno a odesláno pøiznání k DPH.",,,
+,Finance a úèetnictví,DPH,Kontrolní hlášení,FIN_006,Etapa 1 - Implementace BC,"Kontrolní hlášení
+- uživatel vytvoøí kartu kontrolního hlášení a vyplní požadované hodnoty (alespoò datum DPH)
+- uživatel navrhne øádky KH
+- uživatel zkontroluje sekce, že obsahují všechny požadované hodnoty (napø. DIÈ, èíslo pùvodního dokladu apod.)
+- pokud doklad nebude vstupovat do souboru, který se zasílán na daòový portál, vyjme øádek z exportu
+- u dokladù, které jsou ve špatné sekci (napø. souhrnné doklady nad 10tisíc), zmìní sekci (napø. na A5, B3)
+- uživatel vyexportuje soubor XML, který následnì ruènì nahraje na daòový portál",Microsoft ÈR,,"Uživatel má pøehled, která pro která období DPH byl vypoèteno kontrolní hlášení DPH.",,,
+,Finance a úèetnictví,DPH,Souhrnné hlášení,FIN_007,Etapa 1 - Implementace BC,"Souhrnné hlášení
+- uživatel vytvoøí kartu souhrnného hlášení a vyplní požadované hodnoty (alespoò datum DPH)
+- uživatel navrhne øádky SH
+- uživatel zkontroluje øádky a celkovou hodnotu, že odpovídá souètu hodnota na daòovém pøiznání za øádky 20 a 21
+- uživatel vyexportuje soubor XML, který následnì ruènì nahraje na daòový portál
+",Microsoft ÈR,,"Uživatel má pøehled, která pro která období DPH byl vypoèteno souhrnné hlášení DPH.",,,
+,Finance a úèetnictví,DPH,Záznamní povinnost,FIN_008,Etapa 1 - Implementace BC,"Uživatel vytiskne Podklady pro DPH (= záznamní povinnost), která obsahuje všechny náležitosti DPH.",Essence modul,,"Uživatel vytiskne sestavu Podklady pro DPH za konkrétní období.
+Tisková sestava Podklady pro DPH obsahuje všechny náležitosti Záznamní povinnosti DPH.",,,
+,Finance a úèetnictví,DPH,Uzavøení období DPH,FIN_009,Etapa 1 - Implementace BC,"Uživatel nemusí ruènì uzavírat období DPH.
+Sestavou Vypoèíst a úètovat vyrovnání DPH systém pøeúètuje z analytických úètù v daném období všechny pohyby a zaúètuje je na sourhnný finanèní úèet, kde uživatel eviduje závazky/pohledávky s FU.
+Spuštìním sestavy se období DPH automaticky uzavøe.",Microsoft,,Uživatel spustí sestavu Vypoèíst a úètovat vyrovnání DPH. Období DPH je uzavøeno.,,,
+,Finance a úèetnictví,DPH,Pøenesená daòová povinnost,FIN_010,Etapa 1 - Implementace BC,"BC umožòuje všechny režimy DPH.
+Pøenesená daòová povinnost je u tìchto režimù:
+- CZ - obchody mezi plátci DPH, které spadají do režimu pøenesené daòové povinnosti (kódy 1-21) 
+- EU - obchody mezi plátci DPH
+- tøetí zemì - obchody se tøetími zemìmi - zboží prochází pøes JSD",Microsoft,,"Uživatel zaúètuje prodejní fakturu s pøenesenou daòovou povinností. Automaticky vzniknou položky DPH s osvobozenou DPH a èástka DPH je nulová. Na finanèní úèty DPH (343xxx) není úètováno, pokud ano, tak s nulovou èástkou.
+Uživatel zaúètuje nákupní fakturu s pøenesenou daòovou povinností. Podle sazby danì vznikne položka DPH s èástkou DPH a uvedením pøenesené daòové povinnosti. Na finanèní úèty DPH (343xxx) je úètováno pro nákup i pro vratnou DPH. Souèet finanèních úètù DPH je nulový.",,,
+,Finance a úèetnictví,DPH,Spolehlivost plátcù DPH,FIN_011,Etapa 1 - Implementace BC,"Uživatel nad dodavatelem spustí funkci, která zkontroluje, zda je dodavatel spolehlivý a souèasnì natáhne všechny zveøejnìné bankovní úèty.",Microsoft ÈR,,Uživatel pøímo na dodavateli spustí funkci na kontrolu spolehlivosti plátce DPH a okamžitì má informaci o stavu spolehlivosti daného dodavatele. Na položkách spolehlivosti k danému dodavateli uživatel vidí i všechny zveøejnìné bankovní úèty.,,,
+,Finance a úèetnictví,Položky fronty úloh,Spolehlivost plátcù DPH - automatické ovìøování,FIN_012,Etapa 1 - Implementace BC,"Uživatel vytvoøí položku fronty úloh, která každý den ovìøí spolehlivost DPH u všech dodavatelù. 
+Úloha bude spuštìna každý den po 0:10 hod.",Microsoft ÈR,,,,,
+,Finance a úèetnictví,DPH,Zveøejnìné bankovní úèty,FIN_013,Etapa 1 - Implementace BC,"Na kartì dodavatele jsou zadané bankovní úèty. Pokud je úèet zveøejnìn na finanèní správì, je automaticky oznaèen jako zveøejnìný.",Microsoft ÈR,,,,,
+,Finance a úèetnictví,DPH,VIES - kontrola zákazníkù z EU,FIN_014,Etapa 1 - Implementace BC,"Uživatel ruènì ovìøí, zda zákazník z EU je plátce DPH.
+Pokud je zákazník plátce, jsou prodejní doklady osvobozené od DPH. V opaèném pøípadì je nutné zmìnit DPH obchodní úèto skupinu.",Microsoft,,,,,
+,Finance a úèetnictví,Nastavení,Povolení úètování od-do,FIN_015,Etapa 1 - Implementace BC,"Nastavení financí
+- Povolení úètování od-do",Microsoft,,,,,
+,Finance a úèetnictví,Nastavení,Výjimky povolení úètování od-do,FIN_016,Etapa 1 - Implementace BC,"Nastavení uživatelù:
+- Výjimky oproti nastavení financí",Microsoft,,,,,
+,Finance a úèetnictví,Nastavení,Povolení zápisù dokladù pro DPH od-do,FIN_017,Etapa 1 - Implementace BC,"Nastavení DPH
+- Povolení úètování DPH od-do",Microsoft,,,,,
+,Finance a úèetnictví,Nastavení,Výjimky povolení DPH od-do,FIN_018,Etapa 1 - Implementace BC,"Nastavení uživatelù:
+- Výjimky oproti nastavení DPH",Microsoft,,,,,
+,Finance a úèetnictví,Nastavení,Zaokrouhlení faktur,FIN_019,Etapa 1 - Implementace BC,"Nastavení financí
+- nastavení zpùsobu zaokrouhlení faktur (na koruny, haléøe apod.)",Microsoft,,,,,
+,Finance a úèetnictví,Nastavení,Zaokrouhlení faktur na prodeji,FIN_020,Etapa 1 - Implementace BC,"Nastavení prodeje
+- nastavení zaokrouhlení faktur",Microsoft,,,,,
+,Finance a úèetnictví,Nastavení,Zaokrouhlení faktur na nákupu,FIN_021,Etapa 1 - Implementace BC,"Nastavení nákupu
+- nastavení zaokrouhlení faktur",Microsoft,,,,,
+,Finance a úèetnictví,Nastavení,Platební odchylka,FIN_022,Etapa 1 - Implementace BC,"Nastavení financí
+- nastavení výše platební odchylky",Microsoft,,,,,
+,Finance a úèetnictví,DPH,Nastavení odchylky DPH,FIN_023,Etapa 1 - Implementace BC,"Nastavení financí
+- maximální odchylka DPH",Microsoft,,,,,
+,Finance a úèetnictví,DPH,Období DPH,FIN_024,Etapa 1 - Implementace BC,Období DPH - uživatel definuje období DPH. V ÈR je obvykle  zadáno mìsíèní období nebo kvartální období.,Microsoft,,,,,
+,Finance a úèetnictví,DPH,Daòové doklady k DPH,FIN_025,Etapa 1 - Implementace BC,Daòové doklady vznikají v systému automaticky pøi úètování nákupních nebo prodejních faktur/dobropisù. Data ze zaúètovaných dokladù se evidují na položkách DPH.,Microsoft,,,,,
+,Finance a úèetnictví,DPH,DPH obchodní úèto skupina,FIN_026,Etapa 1 - Implementace BC,DPH obchodní úèto skupina je nastavená na zákazníkovi/dodavateli.,Microsoft,,,,,
+,Finance a úèetnictví,DPH,DPH úèto skupina zboží,FIN_027,Etapa 1 - Implementace BC,DPH úèto skupina zboží je nastavená na kartì zboží nebo na kartì finanèního úètu nebo na kartì zdroje,Microsoft,,,,,
+,Finance a úèetnictví,DPH,Obchody v rámci ÈR se zákazníky plátci DPH,FIN_028,Etapa 1 - Implementace BC,Zákazníci mají na kartì nastavenou DPH obchodní úèto skupinu CZ-R. Všechny prodejní doklady s tímto zákazníkem jsou souèástí vykazování DPH a budou vstupovat do Pøiznání DPH na øádek 1 a 2 a do Kontrolního hlášení do sekce A4 a A5,Microsoft,,,,,
+,Finance a úèetnictví,DPH,Obchody v rámci ÈR se zákazníky neplátci DPH,FIN_029,Etapa 1 - Implementace BC,Zákazníci mají na kartì nastavenou DPH obchodní úèto skupinu CZ-N. Všechny prodejní doklady s tímto zákazníkem jsou souèástí vykazování DPH a budou vstupovat do Pøiznání DPH na øádek 1 a 2 a do Kontrolního hlášení do sekce A5,Microsoft,,,,,
+,Finance a úèetnictví,DPH,Obchody v rámci ÈR s dodavateli plátci DPH,FIN_030,Etapa 1 - Implementace BC,Dodavatelé mají na kartì nastavenou DPH obchodní úèto skupinu CZ-R. Všechny nákupní doklady s tímto dodavatelem budou vstupovat do Pøiznání DPH na øádky 40 a 41 a do Kontrolního hlášení do sekce B2 a B3.,Microsoft,,,,,
+,Finance a úèetnictví,DPH,Obchody v rámci ÈR s dodavateli neplátci DPH,FIN_031,Etapa 1 - Implementace BC,Dodavatelé mají na kartì nastavenou DPH obchodní úèto skupinu CZ-N. Všechny nákupní doklady s tímto dodavatelem nebudou souèástí vykazování DPH.,Microsoft,,,,,
+,Finance a úèetnictví,DPH,Obchody v rámci EU se zákazníky plátci DPH,FIN_032,Etapa 1 - Implementace BC,"Zákazníci mají na kartì nastavenou DPH obchodní úèto skupinu EU-R. Ovìøení plátcovství probíhá pøes portál VIES. Všechny prodejní doklady s tímto zákazníkem jsou souèástí vykazování DPH, jsou osvobozené a budou vstupovat do Pøiznání DPH na øádek 20 a 21 a do Souhrnného hlášení.",Microsoft,,,,,
+,Finance a úèetnictví,DPH,Obchody v rámci EU se zákazníky neplátci DPH - CZ DPH,FIN_033,Etapa 1 - Implementace BC,Zákazníci mají na kartì nastavenou DPH obchodní úèto skupinu EU-N. Ovìøení plátcovství probíhá pøes portál VIES. Všechny prodejní faktury s tímto zákazníkem jsou souèástí vykazování DPH. Protože zákazník DPH není plátce DPH je nutné vybrat DPH. Doklady budou vstupovat do CZ Pøiznání DPH na øádky 1 a 2 a do Kontrolního hlášení do sekce A5,Microsoft,,,,,
+,Finance a úèetnictví,DPH,Obchody v rámci EU se zákazníky neplátci DPH - OSS,FIN_034,Etapa 1 - Implementace BC,"Zákazníci mají na kartì nastavenou DPH obchodní úèto skupinu odpovídající kódu zemì. Ovìøení plátcovství probíhá pøes portál VIES. Všechny prodejní faktury s tímto zákazníkem jsou souèástí vykazování DPH. Protože zákazník DPH není plátce DPH je nutné vybrat DPH. Doklady budou vstupovat Hlášení OSS, sazby DPH budou odpovídat sazbám DPH dle jednotlivých státù EU a do Pøiznání DPH vstoupí na øádek 26. Uživatel má k dispozici podklady pro správné vykázání DPH dle zemí EU.",Microsoft,,,,,
+,Finance a úèetnictví,DPH,Obchody v rámci EU s dodavateli plátci DPH,FIN_035,Etapa 1 - Implementace BC,Dodavatelé mají na kartì nastavenou DPH obchodní úèto skupinu EU-R. Všechny nákupní doklady s tímto dodavatelem budou vstupovat do Pøiznání DPH na øádky 3-6 a 43 a 44 a do Kontrolního hlášení do sekce A2.,Microsoft,,,,,
+,Finance a úèetnictví,DPH,Obchody v rámci EU s dodavateli neplátci DPH,FIN_036,Etapa 1 - Implementace BC,Dodavatelé mají na kartì nastavenou DPH obchodní úèto skupinu EU-N. Všechny nákupní doklady s tímto dodavatelem nebudou souèástí vykazování DPH.,Microsoft,,,,,
+,Finance a úèetnictví,DPH,Obchody se tøetími zemìmi se zákazníky,FIN_037,Etapa 1 - Implementace BC,"Zákazníci mají na kartì nastavenou DPH obchodní úèto skupinu OTHER. Všechny prodejní doklady s tímto zákazníkem jsou souèástí vykazování DPH, jsou osvobozené a budou vstupovat do Pøiznání DPH na øádek 22 a 26.",Microsoft,,,,,
+,Finance a úèetnictví,DPH,Obchody se tøetími zemìmi s dodavateli,FIN_038,Etapa 1 - Implementace BC,"Dodavatelé mají na kartì nastavenou DPH obchodní úèto skupinu OTHER. Všechny nákupní doklady s tímto dodavatelem budou vstupovat do Pøiznání DPH na øádky 7,8,12,13 a 43 a 44.",Microsoft,,,,,
+,Finance a úèetnictví,DPH,Kontrola EU zákazníka plátce DPH,FIN_039,Etapa 1 - Implementace BC,"Prodej mezi plátci DPH v EU je osvobozen od DPH.
+Aby se zabránilo chybovosti uživatele, zda zákazník je v okamžiku uskuteènìní plnìní plátce DPH, bude na tabulku DPH obchodních úèto skupin pøidáno pole Plátce DPH.
+V kombinaci s DPH úèto skupinou zboží pro pøenesenou daòovou povinnost nebude možné vydat prodejní objednávku nebo zaúètovat prodejní fakturu, dokud nebude zákazník ovìøen na VIESu jako plátce DPH.
+Uživatel ruènì ovìøí zákazníka a vydá objednávku nebo zaúètuje fakturu.
+V opaèném pøípadì je nutné vybrat jinou DPH obchodní úèto skupinu.",Essence úprava,T&M,,,1.5,
+,Finance a úèetnictví,DPH,Kontrola EU zákazníka plátce DPH - automatické ovìøení,FIN_040,Etapa 1 - Implementace BC,"Navazuje na bod pøedchozí.
+Uživatel nebude ovìøovat ruènì, ale systém sám pøi vydání prodejní objednávky nebo pøi úètování prodejní faktury ovìøí plátce DPH v EU. (VIES)",Essence úprava,T&M,,,2.0,
+,Finance a úèetnictví,DPH,Kontrola CZ zákazníka plátce DPH,FIN_041,Etapa 1 - Implementace BC,"Pokud se jedná o pøenesenou daòovou povinnost v CZ, je nutné ovìøit, že zákazník je plátce DPH.
+Pro kontrolu plátcovství bude využita funkce VIES.
+Na tabulku DPH obchodní úèto skupiny bude pøidáno nové pole Plátce DPH (shodnì s kontrolou na EU zákazníka).
+V kombinaci s DPH úèto skupinou zboží pro pøenesenou povinnost bude uživatel upozornìn, že zákazník není zkontrolován jako plátce DPH (pøi vydání prodejní objednávky nebo pøi úètování prodejní faktury)
+Uživatel zákazníka ruènì zkontroluje a objednávku vydá nebo fakturu zaúètuje.
+V opaèném pøípadì je nutné vybrat jinou kombinaci DPH úèto skupin.",Essence úprava,T&M,,,2.0,
+,Finance a úèetnictví,DPH,Kontrola CZ zákazníka plátce DPH - automatické ovìøení,FIN_042,Etapa 1 - Implementace BC,"Navazuje na bod pøedchozí.
+Uživatel nebude ovìøovat ruènì, ale systém sám pøi vydání prodejní objednávky nebo pøi úètování prodejní faktury ovìøí plátce DPH v CZ. (VIES)",Essence úprava,T&M,,,3.0,
+,Finance a úèetnictví,Vnitropodnik,Nastavit vnitropodnikové úètování,FIN_043,Etapa 1 - Implementace BC,"Každá spoleènost v BC bude oznaèena jako vnitropodniková.
+Pokud v jedné spoleènosti uživatel vytvoøí nebo zaúètuje doklad (objednávky, faktura, dobropis), automaticky vznikne doklad v propojené spoleènosti (v BC).
+Uživatel nebude muset doklad poøizovat ruènì a sníží se chybovost pøi poøizování dokladù.",Microsoft,,,,,
+,Finance a úèetnictví,Vnitropodnik,Vnitropodnikové pohyby,FIN_044,Etapa 1 - Implementace BC,"Nìkteré položky se v rámci vnitropodniku nepøenášejí. S uživateli bude upøesnìno, které údaje navíce se budou pøebírat z jedné spoleènosti do druhé. ",Essence úprava,T&M,,,5.0,
+,Finance a úèetnictví,Sklady,"Pøechod na úètování zpùsobem ""A""",FIN_045,Etapa 1 - Implementace BC,"Pøi importu poèáteèních stavù budou všechny zásoby poøízeny na úèty zásob (1xx).
+Správné zaúètování je zajištìno Nastavením úètování zásob a Nastavením obecného úètování.",Microsoft,,,,,
+,Finance a úèetnictví,Banky,Nastavení bankovního úètu,FIN_046,Etapa 1 - Implementace BC,"Bankovní úèet:
+- èíslo úètu
+- mìna
+- zda bude úèet použit jako výchozí pro tuto mìnu
+- nastavit úèto skupinu bankovního úètu
+- nastavit èíselné øady pro výpisy / pøíkazy
+- nastavit finanèní úèet pro neznámé platby
+- nastavit importní a exportní formáty",Essence modul,,,,,
+,Finance a úèetnictví,Banky,Export bankovního pøíkazu,FIN_047,Etapa 1 - Implementace BC,"Uživatel vytvoøí hlavièku platebního pøíkazu, zadá požadované datum splatnosti a další požadované údaje.
+Uživatel navrhne do øádkù faktury, které bude platit. Nechtìné øádky smaže a platební pøíkaz vydá.
+Z vydaného platebního pøíkazu uživatel vyexportuje pøíkaz do banky.
+Vyexportovaný soubor uživatel nahraje do bankovní aplikace.",Essence modul,,,,,
+,Finance a úèetnictví,Banky,Import bankovního výpisu,FIN_048,Etapa 1 - Implementace BC,Uživatel z bankovní aplikace stáhne soubor s bankovním výpisem. V BC založí hlavièku bankovního výpisu a funkcí naimportuje øádky bankovního výpisu. Bankovní výpis vydá a navrhne do deníku plateb. V deníku plateb jsou jednotlivé platby vypárovány na zaúètované doklady v BC. Nenalezené platby uživatel dohledá ruènì.,Essence modul,,,,,
+,Finance a úèetnictví,Banky,Napojení pøímo do bankovní aplikace pøes API,FIN_049,Etapa 1 - Implementace BC,"Jak pøíkazy do banky, tak i výpisy z banky uživatel exportuje/importuje pøímo z BC.",Essence úprava,T&M,,,4.0,
+,Finance a úèetnictví,Pokladny,Nastavení pokladny,FIN_050,Etapa 1 - Implementace BC,"Uživatel nastaví kartu pokladny:
+- mìna
+- úèto skupina bankovního úètu
+- èíselné øady pro pokladní doklady
+- limity pro pokladní doklady a pro pokladnu
+- uživatele pokladny",Microsoft ÈR,,,,,
+,Finance a úèetnictví,Pokladny,Pokladní doklady,FIN_051,Etapa 1 - Implementace BC,"Uživatel založí hlavièku pokladního dokladu, vybere, zda se jedná o pøíjem/výdej.
+Doplní požadované údaje, pøípadnì vyrovná zaúètované doklady.
+Pokladní doklad vydá. Nebo pokladní doklad rovnou zaúètuje.",Microsoft ÈR,,,,,
+,Finance a úèetnictví,Pokladny,Inventura pokladny,FIN_052,Etapa 1 - Implementace BC,Pro každou pokladnu samostatnì je možné vyjet Pokladní knihu nebo Inventuru pokladny s rozpisem bankovek/mincí.,Microsoft ÈR,,,,,
+,Finance a úèetnictví,Banky,Platební karty - pøíchozí platba,FIN_053,Etapa 1 - Implementace BC,"Pøíchozí platba pøes platební kartu nastává jednou týdnì, uživatel rozdìlí øádek v bankovním výpisu, jednou èástkou vyrovná zaúètovaný doklad a druhým øádkem zaúètuje bankovní poplatek. Není nutná žádná automatizace.",Microsoft ÈR,,,,,
+,Finance a úèetnictví,Interní doklady,Platební karty - odchozí platby,FIN_054,Etapa 1 - Implementace BC,"Jednou mìsíènì pøinesou zamìstnanci vyúètování plateb kartou. Uživatel doklady zpracuje pøes finanèní deníky a jako protiúèet vybere kartu zamìstnance, kterému je karta pøidìlena. 
+Doklady mùže zpracovávat jednotlivì nebo hromadnì.
+Na øádek finanèního deníku mùže uživatel zadat i DPH, pokud na dokladu je, pøípadnì vybrat partnera z databáze BC, aby se na položky DPH dotáhlo správné DIÈ.",Microsoft ÈR,,,,,
+,Finance a úèetnictví,Banky,Platební karty - odchozí platby,FIN_055,Etapa 1 - Implementace BC,"Pøi úètování bankovního výpisu jsou øádky výpisu s platební kartou automaticky párované na kartu zamìstnance (napø. podle VS, SS nebo jiného pole)
+Vyrovnání na kartì zamìstnance musí uživatel provést ruènì, protože platba je v BC obvykle døív než úèetní doklad.",Microsoft ÈR,,,,,
+,Finance a úèetnictví,Interní doklady,Mzdy,FIN_056,Etapa 1 - Implementace BC,"Ze mzdového systému uživatel obdrží CSV nebo TXT soubor, který nahraje do finanèního deníku v BC.
+Podle nastavení definice výmìny dat jsou sloupce v souboru naimportovány do patøièných polí ve finanèním deníku.
+Uživatel doklad zkontroluje a zaúètuje.",Microsoft ÈR,,,,,
+,Finance a úèetnictví,Mzdy,Mzdy souèástí BC,FIN_057,Etapa 1 - Implementace BC,Pro potøeby personalizace a mzdové úèetnictví bude použit modul jiného MS partnera.,Modul tøetí strany,,,,,
+,Finance a úèetnictví,Interní doklady,Dohadné položky,FIN_058,Etapa 1 - Implementace BC,nejsou, ---,,,,,
+,Finance a úèetnictví,Interní doklady,Èasové rozlišení,FIN_059,Etapa 1 - Implementace BC,nejsou, ---,,,,,
+,Finance a úèetnictví,Ostatní,Upomínky,FIN_060,Etapa 1 - Implementace BC,"Uživatel vygeneruje seznam upomínek.
+Na kartì upomínky je uveden zákazník, které ho bude uživatel upomínat a øádky upomínky, které odpovídají neuhrazeným pohledávkám v BC. 
+Uživatel po kontrole upomínku vydá a odešle zákazníkovi.",Microsoft ÈR,,,,,
+,Finance a úèetnictví,Úèetnictví,"Vykazování (rozvaha, výsledovka)",FIN_061,Etapa 1 - Implementace BC,"Rozvaha a výsledovka jsou souèástí BC.
+Tuto oblast øeší Finanèní výkazy, které jsou pøedpøipravené a uživatel je exportuje do Excelu.",Essence modul,,,,,
+,Finance a úèetnictví,Úèetnictví,Ostatní úèetní vykazování,FIN_062,Etapa 1 - Implementace BC,"Ostatní výkazy bude uživatel øešit pøes finanèní výkazy, které si mùže sám nastavit. Pøípadnì budou tyto výkazy nastaveny v prùbìhu školení.
+Do finanèního výkazu je možné zadat øádky a sloupce. Sloupce se obvykle vztahují k èasovému úseku (loni, letos, v únoru, v bøeznu apod.)
+Øádky se vztahují ke konkrétní oblasti (napø. náklady, úèet 501 apod.)",Microsoft ÈR,,,,,
+,Finance a úèetnictví,Zálohy,Prodejní zálohové faktury,FIN_063,Etapa 1 - Implementace BC,"Prodejní zálohová faktura bude uživatelem vytvoøena z prodejní objednávky a zaplacení prodejní zálohy je navázáno na vytvoøení výrobní zakázky.
+Automatickým zaplacením prodejní faktury vznikne daòový doklad k pøijaté platbì.
+Pøi úètování prodejní faktury z objednávky je záloha automaticky odeètena, a to i v pøípadì, že sazby DPH na záloze neodpovídají koneèné faktuøe (systém sám sazby správnì odúètuje a zaúètuje)
+Zálohová faktura mùže být v cizí mìnì, ale nedoporuèujeme na konci fiskálního roku provádìt u zálohových faktur adjustaci smìnného kurzu, jako u ostatních dokladù.",Microsoft ÈR,,,,,
+,Finance a úèetnictví,Zálohy,Nákupní zálohové faktury,FIN_064,Etapa 1 - Implementace BC,"Nákupní zálohová faktura vznikne z nákupní objednávky nebo ruèním zápisem uživatele. Po zaplacení zálohové faktury uživatel mùže, ale nemusí, zaúètovat daòový doklad k pøijaté platbì.
+Po zaúètování koneèné faktury s pøipojenou zálohovou fakturou vzniknou správné položky v úèetnictví i DPH.
+Pokuje je zálohová platba vyšší než koneèná faktura, musí uživatel uzavøít zálohu pøímo na kartì zálohové faktury.",Microsoft ÈR,,,,,
+,Finance a úèetnictví,Zálohy,Šablona záloh,FIN_065,Etapa 1 - Implementace BC,"Šablona záloh je pro všechn zálohy spoleèná. Uživatel na ní definuje èíselné øady pro zálohy, èíslo finanèního úètu (314, 324 apod) a zda se má nebo nemá vytváøet daòový doklad.",Microsoft ÈR,,,,,
+,Finance a úèetnictví,Majetek,Karta majetku,FIN_066,Etapa 1 - Implementace BC,"Uživatel vytvoøí kartu majetku, nadefinuje požadované údaje a to hlavnì:
+- kategoriii a podkategorii (definuje se tím úèto skupina DM)
+- dimenze",Microsoft ÈR,,,,,
+,Finance a úèetnictví,Majetek,Karta majetku - úèetní a daòové pohyby,FIN_067,Etapa 1 - Implementace BC,"Na kartì majetku uživatel vytvoøí øádky pro knihy odpisù:
+- úèetní
+- daòové
+- ostatní (IFRS apod) - pro každé pohyby samostatnì
+Pro jednotlivé øádky je nutné definovat úèto skupinu, zpùsob odpisování (lineární, zrychlené apod.), dobu odpisování a poèáteèní datum pro zaèátek odpisování",Microsoft ÈR,,,,,
+,Finance a úèetnictví,Majetek,"Operace s majetkem (zaøazení, vyøazení, odpisy apod.)",FIN_068,Etapa 1 - Implementace BC,"Pohyby majetku, které vstupují do úèetnictví, provádí uživatel na Finanèních denících DM:
+Neúèetní pohyby provádí uživatel na Denících DM.
+Pøes výše uvedené pohyby lze majetek:
+- zaøazovat-zhodnocovat-znehodnocovat
+- odpisovat
+- vyøazovat",Microsoft ÈR,,,,,
+,Finance a úèetnictví,Majetek,Inventura majetku,FIN_069,Etapa 1 - Implementace BC,"K inventuøe majetku jsou k dispozici sestavy (napø. Úèetní hodnota aj.)
+Uživatel mùže vytisknout inventuru za umístìní nebo za odpovìdného zamìstnance.",Microsoft ÈR,,,,,
+,Finance a úèetnictví,Majetek,Historie majetku,FIN_070,Etapa 1 - Implementace BC,"Pokud je na kartì definováno umístìní nebo odpovìdný zamìstnanec a karta majetku je pøeøazena na jinou lokaci nebo jinému zamìstnanci, vznikají položky historie majetku, podle kterých je zøejmé, kdy zmìna probìhla.",Microsoft ÈR,,,,,
+,Finance a úèetnictví,GoLive,GoLive - navedení karet majetku,FIN_071,Etapa 1 - Implementace BC,"Uživatel ze souèasného systému vyexportuje do Excelu seznam majetku, který budeme pøevádìt.
+Essence pøipraví konf.balíèky, které spoleènì s uživateli naplní a naimportuje do BC",Microsoft ÈR,,,,,
+,Finance a úèetnictví,GoLive,GoLive - navedení úèetních pohybù majetku,FIN_072,Etapa 1 - Implementace BC,"Uživatel vyexportuje ze stávajícího systému úèetní pohyby/operace s majetkem, a to buï jednotlivì nebo kumulovanì.
+Essence pøipraví konf.balíèky, které spolu s uživateli vyplní a naimportuje do BC.",Microsoft ÈR,,,,,
+,Finance a úèetnictví,GoLive,GoLive - navedení daòových pohybù majetku,FIN_073,Etapa 1 - Implementace BC,"Uživatel vyexportuje ze stávajícího systému daòové pohyby/operace s majetkem, a to buï jednotlivì nebo kumulovanì.
+Essence pøipraví konf.balíèky, které spolu s uživateli vyplní a naimportuje do BC.",Microsoft ÈR,,,,,
+,Finance a úèetnictví,Zápoèty,Zápoèty - práce se zápoètem,FIN_074,Etapa 1 - Implementace BC,"Uživatel vytvoøí kartu zápoètu.
+Navrhne øádky pro prodejní a nákupní doklady.
+Po odsouhlasení s partnerem zápoèet zaúètuje.",Microsoft ÈR,,,,,
+,Finance a úèetnictví,Zápoèty,Faktury v zápoètu není možné zaplatit,FIN_075,Etapa 1 - Implementace BC,"Na položce zákazníka/dodavatele je uvedena èástka zápoètu, fakturu tak není možné navrhnout do platebního pøíkazu.",Microsoft ÈR,,,,,
+,Finance a úèetnictví,Mìny,Nastavení mìny,FIN_076,Etapa 1 - Implementace BC,"Na kartì mìny jsou nastaveny úèty pro kurzové rozdíly a zpùsob zaokrouhlení vyrovnání faktur v cizí mìnì.
+Uživatel si vybere, zda bude používat denní/mìsíèní/roèní smìnný kurz.",Microsoft,,,,,
+,Finance a úèetnictví,Mìny,Výchozí nastavení na kartách,FIN_077,Etapa 1 - Implementace BC,"Výchozí nastavení uživatel provede na kartách:
+- zákazníkù
+- dodavatelù
+- bankovního úètu
+- pokladny",Microsoft,,,,,
+,Finance a úèetnictví,Mìny,Doklady v cizích mìnách,FIN_078,Etapa 1 - Implementace BC,"Na prodejní a nákupní doklady je automaticky doplnìna cizí mìna z karty zákazníka/dodavatele.
+Uživatel má možnost pøímo na dokladu zmìnit údaj o mìnì. Doklad bude zaúètován s touto mìnou a souèasnì do úèetnictví budou propsány èástky pøepoètené podle platného smìnného kurzu.",Microsoft,,,,,
+,Finance a úèetnictví,Mìny,Doklady v cizích mìnách a DPH,FIN_079,Etapa 1 - Implementace BC,"Na nákupní doklady, které vstupují do vykazování DPH v ÈR, zadá uživatel smìnný kurz dle dodavatele.",Microsoft,,,,,
+,Finance a úèetnictví,Mìny,Záloha v cizí mìnì,FIN_080,Etapa 1 - Implementace BC,"Uživatel vytvoøí zálohovou fakturu (nákupní i prodejní) v cizí mìnì. Pokud záloha vznikla z objednávky, automaticky propadne cízí mìna i do zálohy.
+Koneèná vyrovnávací faktura, ke které uživatel pøipojí zálohu, musí mít stejnou cizí mìnu, jaká je na zálohové faktuøe.",Microsoft,,,,,
+,Finance a úèetnictví,Mìny,Zálohový daòový doklad v cizí mìnì,FIN_081,Etapa 1 - Implementace BC,"Pøi uhrazení prodejní zálohové faktury vzniká automaticky daòový doklad k pøijaté platbì. Na tiskové sestavì je uveden smìnný kurz, aby DPH byly jak u zákazníka, tak i ve Zlomku vykázáno ve stejné výši.
+Pøi uhrazení nákupní zálohy èeká uživatel na Daòový doklad k pøijaté platbì od dodavatele a pøi úètování daòového dokladu použije uživatel stejný smìnný kurz, jako uvedl dodavatel na zaslaném dokladu.",Microsoft,,,,,
+,Finance a úèetnictví,Položky fronty úloh,Mìny,FIN_082,Etapa 1 - Implementace BC,"Uživatel nastaví automatické stahování smìnného kurzu dle svých požadavkù - mìsíènì, dennì",Essence modul,,,,,
+,Finance a úèetnictví,Dimenze,Støedisko ??,FIN_083,Etapa 1 - Implementace BC,,,,,,,
+,Finance a úèetnictví,Nákup,Nákupní faktura za zboží,FIN_084,Etapa 1 - Implementace BC,"Uživatel vytvoøí nákupní fakturu na konkrétního dodavatele.
+Podle dokladu od dodavatele zadá požadované údaje (datum, èíslo faktury apod.).
+Na øádky nákupní faktury zkopíruje øádky pøíslušných pøíjemek, zkontroluje èástky, DPH, a fakturu zaúètuje.",Microsoft,,,,,
+,Finance a úèetnictví,Nákup,Nákupní faktura za zboží - z nákupní objednávky,FIN_085,Etapa 1 - Implementace BC,"Uživatel otevøe nákupní objednávku, zkontroluje, že zboží bylo pøijmuto, upraví údaje (datum, èíslo faktury apod.), zkontroluje èástky, DPH a zaúètuje.
+Vznikne úètovaná nákupní faktura.",Microsoft,,,,,
+,Finance a úèetnictví,Nákup,Nákupní faktura - pøipojení dokladu od dodavatele,FIN_086,Etapa 1 - Implementace BC,"Uživatel soubor s nákupní fakturou od dodavatele (zaslaný napø. mailem) uloží na úložištì nebo do prostøedí BC.
+K nákupní objednávce nebo k nákupní faktuøe tento soubor pøipojí.
+Pokud dodavatel fakturu doruèí poštou, odpovìdný uživatel fakturu naskenuje do souboru, se kterým bude pracovat stejnì jako s fakturou zaslanou mailem.",Microsoft,,,,,
+,Finance a úèetnictví,Nákup,Úložištì souborù,FIN_087,Etapa 1 - Implementace BC,"Doklady je možné ukládat:
+- pøímo do prostøedí BC
+- na úložištì a zajistit proklik z BC",Essence modul,,,,,
+,Finance a úèetnictví,Nákup,Navrhnout vytìžování dokladù,FIN_088,Etapa 1 - Implementace BC,Viz body v NPS,Modul tøetí strany,,,,,
+,Finance a úèetnictví,Nákup,Roèní bonus za odebraný materiál,FIN_089,Etapa 1 - Implementace BC,Nákupní dobropis za roèní bonus nebude rozpuštìn do všech pøíjemek od dodavatele. Bude úètován pøímo na nákladový úèet,Microsoft,,,,,
+,Finance a úèetnictví,Zálohy,Prodejní zálohové faktury - odeslání zakázky do výroby,FIN_090,Etapa 1 - Implementace BC,"Uživatel èeká na uhrazení prodejní zálohy, aby byla výrobní zakázka zadána do realizace.
+Výrobní zakázka je navázána na prodejní objednávku, je potøeba zajistit aktualizaci prodejní objednávky, aby uživatel mìl pøehled o stavu zálohové platby.",Essence úprava,RFC,,,5.0,
+,Finance a úèetnictví,Nastavení,Nastavení financí - nastavit èástku platební odchylky,FIN_091,Etapa 1 - Implementace BC,Pro CZK nastavit platební odchylku na 1 Kè.,Microsoft,,,,,
+,Finance a úèetnictví,Majetek,Odpisové knihy,FIN_092,Etapa 1 - Implementace BC,"Knihy odpisù:
+- UCETNI - vstupuje do úèetnictví
+- DANOVA - pouze pro daòové pohyby
+- DROBNY - do úèetnictví vstupuje pouze zaøazení (úèet 50x)",Microsoft,,,,,
+,Finance a úèetnictví,Vykazování,Vykazování spoleènosti - Intrastat,FIN_093,Etapa 1 - Implementace BC,"V BC je k dispozici, ale Zlomek nevykazuje",Microsoft ÈR,,,,,
+,Finance a úèetnictví,Vykazování,Vykazování spoleènosti - Statistický úøad,FIN_094,Etapa 1 - Implementace BC,"Podklady pro ÈSU získá uživatel v BC, samotné výkazy nejsou k dispozici",Microsoft ÈR,,,,,
+,Finance a úèetnictví,Vykazování,Vykazování spoleènosti - Ekokom,FIN_095,Etapa 1 - Implementace BC,Nevykazuje se, ---,,,,,
+,Finance a úèetnictví,Prodej,Prodejní faktury,FIN_096,Etapa 1 - Implementace BC,"Standardní koleèko - Objednávka - Zálohová faktura - Uhrazení zálohy - Výroba - Dodání - Koneèná faktura
+
+viz FIN_090",Microsoft ÈR,,,,,
+,Finance a úèetnictví,Prodej,Prodejní faktury s reverse charge,FIN_097,Etapa 1 - Implementace BC,"Zákazníkovi CZ, plátci DPH, je dodáno zboží a služby v režimu  reverse charge - tedy s nulovou DPH, kdy daò odvede zákazník. 
+Viz FIN_041",,,,,,
+,Finance a úèetnictví,Replikace,Jednotné èíselníky v rámci všech spoleèností,FIN_098,Etapa 1 - Implementace BC,Nasazení modulu Essence replikace,Essence modul,,Master spoleènost Zlomek CZ - v pøípadì vytvoøení synchronizovaného záznamu dojde k propsání dat do dalších spoleèností.,,,
+,Finance a úèetnictví,Konsolidace,Konsolidovaná úèetní závìrka,FIN_099,Etapa 3 - Rozvojová fáze systému,Nasazení modulu Essence konsolidace,Essence modul,,,,,
+,Finance a úèetnictví,Mzdy,Mzdový a personální modul v Business Central,FIN_100,Etapa 3 - Rozvojová fáze systému,Nasazení modulu BA4 Czech Payroll od posleènosti Konica Minolta.,Modul tøetí strany,,Systém Business Central bude rozšíøen o agendy mezd a personalistiky. Bude tak možné vytváøet mzdové úèetnictví v rámci jednoho systému,,15MD + licence modulu (25.000CZK/rok),
+,Finance a úèetnictví,,,,Etapa 2 - Implementace CRM,,,,,,,
+,Celkem,,,,,,,,,,,0
+,,,,,,,,Obrázek,,,,
+,,,,,,,,,,,,
+,,,,,,,,,,,,
+,,,,,,,,,,,,

@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Přehled požadavků - GapFit</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .view-switcher {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .view-switcher a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            background: rgba(255,255,255,0.2);
+            border-radius: 6px;
+            margin: 0 0.5rem;
+            display: inline-block;
+            transition: background 0.3s;
+        }
+
+        .view-switcher a:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .view-switcher a.active {
+            background: white;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .filter-bar {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-bar select {
+            padding: 0.5rem 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 1rem;
+            background: white;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+
+        .filter-bar select:hover {
+            border-color: #667eea;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .card-header {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .card-id {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 0.8rem;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            color: #2d3748;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-meta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+            color: #718096;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .meta-item::before {
+            content: '•';
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .card-section {
+            margin: 1.5rem 0;
+        }
+
+        .section-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .section-content {
+            color: #4a5568;
+            line-height: 1.6;
+        }
+
+        .section-content :global(h4),
+        .section-content :global(h5) {
+            color: #2d3748;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-content :global(ul),
+        .section-content :global(ol) {
+            padding-left: 1.5rem;
+            margin: 0.5rem 0;
+        }
+
+        .section-content :global(li) {
+            margin: 0.3rem 0;
+        }
+
+        .section-content :global(code) {
+            background: #f7fafc;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #e53e3e;
+        }
+
+        .section-content :global(pre) {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        .section-content :global(pre code) {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+        }
+
+        .section-content :global(table) {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        .section-content :global(th),
+        .section-content :global(td) {
+            padding: 0.5rem;
+            border: 1px solid #e2e8f0;
+            text-align: left;
+        }
+
+        .section-content :global(th) {
+            background: #f7fafc;
+            font-weight: 600;
+        }
+
+        .section-content :global(blockquote) {
+            border-left: 4px solid #667eea;
+            padding-left: 1rem;
+            margin: 1rem 0;
+            font-style: italic;
+            color: #718096;
+        }
+
+        .section-content :global(strong) {
+            color: #2d3748;
+            font-weight: 600;
+        }
+
+        .estimate-badge {
+            display: inline-block;
+            background: #edf2f7;
+            color: #2d3748;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .customer-note {
+            background: #fef5e7;
+            border-left: 4px solid #f39c12;
+            padding: 1rem;
+            border-radius: 0 8px 8px 0;
+            margin-top: 1rem;
+        }
+
+        .customer-note::before {
+            content: '💬 ';
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 1024px) {
+            .cards-grid {
+                grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 2rem;
+            }
+
+            body {
+                padding: 1rem;
+            }
+        }
+
+        .loading {
+            text-align: center;
+            color: white;
+            font-size: 1.5rem;
+            padding: 3rem;
+        }
+
+        .stats {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #667eea;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .view-switcher {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .view-switcher a {
+            color: white;
+            text-decoration: none;
+            padding: 0.7rem 1.5rem;
+            background: rgba(255,255,255,0.2);
+            border-radius: 8px;
+            margin: 0 0.5rem;
+            display: inline-block;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .view-switcher a:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        .view-switcher a.active {
+            background: white;
+            color: #667eea;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📋 Přehled požadavků projektu</h1>
+            <p>Gap Fit Analysis - Webtoonz Minecraft Education</p>
+        </header>
+
+        <div class="view-switcher">
+            <a href="gapfit_view.html" class="active">🔲 Zobrazení karet</a>
+            <a href="gapfit_view_list.html">📄 Zobrazení seznamu</a>
+        </div>
+
+        <div class="stats" id="stats">
+            <div class="stat-item">
+                <span class="stat-value" id="totalRequirements">0</span>
+                <span class="stat-label">Celkem požadavků</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value" id="totalHours">0</span>
+                <span class="stat-label">Celkový odhad (hod)</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value" id="totalAreas">0</span>
+                <span class="stat-label">Oblastí</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value" id="totalPhases">0</span>
+                <span class="stat-label">Etap projektu</span>
+            </div>
+        </div>
+
+        <div class="filter-bar">
+            <label>Filtrovat podle:</label>
+            <select id="filterArea">
+                <option value="">Všechny oblasti</option>
+            </select>
+            <select id="filterPhase">
+                <option value="">Všechny etapy</option>
+            </select>
+            <select id="filterType">
+                <option value="">Všechny typy řešení</option>
+            </select>
+        </div>
+
+        <div class="cards-grid" id="cardsContainer">
+            <div class="loading">Načítání požadavků...</div>
+        </div>
+    </div>
+
+    <script>
+        // Načtení dat z JSON souboru
+        async function loadData() {
+            try {
+                const response = await fetch('gapfit.json');
+                const data = await response.json();
+                return data.pozadavky;
+            } catch (error) {
+                console.error('Chyba při načítání dat:', error);
+                document.getElementById('cardsContainer').innerHTML = 
+                    '<div class="loading" style="color: #e53e3e;">Chyba při načítání dat. Zkontrolujte konzoli.</div>';
+                return [];
+            }
+        }
+
+        // Vytvoření HTML pro kartu
+        function createCard(req) {
+            return `
+                <div class="card" data-area="${req.Oblast}" data-phase="${req['Etapa Projektu']}" data-type="${req['Typ řešení']}">
+                    <div class="card-header">
+                        <span class="card-id">${req['ID požadavku']}</span>
+                        <h2 class="card-title">${req['Název požadavku']}</h2>
+                        <div class="card-meta">
+                            <span class="meta-item">${req.Oblast}</span>
+                            <span class="meta-item">${req.Kapitola}</span>
+                            <span class="meta-item">${req['Etapa Projektu']}</span>
+                        </div>
+                    </div>
+
+                    <div class="card-section">
+                        <span class="section-label">Požadavek</span>
+                        <div class="section-content">${req.Požadavek}</div>
+                    </div>
+
+                    <div class="card-section">
+                        <span class="section-label">Typ řešení</span>
+                        <div class="section-content"><strong>${req['Typ řešení']}</strong></div>
+                    </div>
+
+                    <div class="card-section">
+                        <span class="section-label">Popis řešení</span>
+                        <div class="section-content">${req['Popis řešení']}</div>
+                    </div>
+
+                    <div class="card-section">
+                        <span class="section-label">Akceptační kritéria</span>
+                        <div class="section-content">${req['Akceptační kritéria']}</div>
+                    </div>
+
+                    <div class="card-section">
+                        <span class="section-label">Odhad realizace</span>
+                        <span class="estimate-badge">⏱️ ${req.Odhad}</span>
+                    </div>
+
+                    ${req['Poznámka zákazníka'] ? `
+                        <div class="customer-note">
+                            <strong>Poznámka zákazníka:</strong><br>
+                            ${req['Poznámka zákazníka']}
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+        }
+
+        // Výpočet statistik
+        function calculateStats(requirements) {
+            const totalHours = requirements.reduce((sum, req) => {
+                const hours = parseInt(req.Odhad.match(/\d+/)?.[0] || 0);
+                return sum + hours;
+            }, 0);
+
+            const areas = new Set(requirements.map(r => r.Oblast));
+            const phases = new Set(requirements.map(r => r['Etapa Projektu']));
+
+            document.getElementById('totalRequirements').textContent = requirements.length;
+            document.getElementById('totalHours').textContent = totalHours;
+            document.getElementById('totalAreas').textContent = areas.size;
+            document.getElementById('totalPhases').textContent = phases.size;
+        }
+
+        // Naplnění filtrů
+        function populateFilters(requirements) {
+            const areas = [...new Set(requirements.map(r => r.Oblast))];
+            const phases = [...new Set(requirements.map(r => r['Etapa Projektu']))];
+            const types = [...new Set(requirements.map(r => r['Typ řešení']))];
+
+            const areaSelect = document.getElementById('filterArea');
+            const phaseSelect = document.getElementById('filterPhase');
+            const typeSelect = document.getElementById('filterType');
+
+            areas.forEach(area => {
+                const option = document.createElement('option');
+                option.value = area;
+                option.textContent = area;
+                areaSelect.appendChild(option);
+            });
+
+            phases.forEach(phase => {
+                const option = document.createElement('option');
+                option.value = phase;
+                option.textContent = phase;
+                phaseSelect.appendChild(option);
+            });
+
+            types.forEach(type => {
+                const option = document.createElement('option');
+                option.value = type;
+                option.textContent = type;
+                typeSelect.appendChild(option);
+            });
+        }
+
+        // Filtrování karet
+        function filterCards() {
+            const areaFilter = document.getElementById('filterArea').value;
+            const phaseFilter = document.getElementById('filterPhase').value;
+            const typeFilter = document.getElementById('filterType').value;
+
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                const matchArea = !areaFilter || card.dataset.area === areaFilter;
+                const matchPhase = !phaseFilter || card.dataset.phase === phaseFilter;
+                const matchType = !typeFilter || card.dataset.type === typeFilter;
+
+                if (matchArea && matchPhase && matchType) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Inicializace
+        async function init() {
+            const requirements = await loadData();
+            
+            if (requirements.length === 0) return;
+
+            // Zobrazení karet
+            const container = document.getElementById('cardsContainer');
+            container.innerHTML = requirements.map(req => createCard(req)).join('');
+
+            // Výpočet statistik
+            calculateStats(requirements);
+
+            // Naplnění filtrů
+            populateFilters(requirements);
+
+            // Event listenery pro filtry
+            document.getElementById('filterArea').addEventListener('change', filterCards);
+            document.getElementById('filterPhase').addEventListener('change', filterCards);
+            document.getElementById('filterType').addEventListener('change', filterCards);
+        }
+
+        // Spuštění po načtení stránky
+        init();
+    </script>
+</body>
+</html>
